@@ -238,7 +238,7 @@
 	</dependencies>
 
     <build>
-		<defaultGoal>install</defaultGoal>
+		<defaultGoal>package</defaultGoal>
 		<directory>${basedir}/target</directory>
 		<finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
