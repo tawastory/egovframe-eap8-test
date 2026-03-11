@@ -248,6 +248,7 @@
 				<version>3.14.0</version>
                 <configuration>
 					<release>${java.version}</release>
+					<encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -256,6 +257,7 @@
 				<version>3.4.0</version>
             	<configuration>
             		<failOnMissingWebXml>false</failOnMissingWebXml>
+            		<encoding>UTF-8</encoding>
             	</configuration>
             </plugin>
             <!-- PMD manven plugin -->
