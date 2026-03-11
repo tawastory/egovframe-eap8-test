@@ -274,6 +274,7 @@
                 <configuration>
                     <skipTests>true</skipTests>
                     <reportFormat>xml</reportFormat>
+                    <encoding>UTF-8</encoding>
                     <excludes>
                         <exclude>**/Abstract*.java</exclude>
                         <exclude>**/*Suite.java</exclude>
@@ -290,6 +291,7 @@
 				<version>3.11.2</version>
 				<configuration>
                     <doclint>none</doclint>
+                    <encoding>UTF-8</encoding>
                 </configuration>
                 <executions>
                     <execution>
