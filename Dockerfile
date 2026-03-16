@@ -3,7 +3,7 @@ USER root
 
 
 COPY ROOT.war /opt/eap/standalone/deployments/
-
+COPY standalone.xml /opt/eap/standalone/configuration/standalone.xml
 #COPY configuration/standalone-openshift.xml /opt/eap/standalone/configuration/standalone-openshift.xml
 #COPY configuration/standalone.conf /opt/eap/bin/standalone.conf
 
