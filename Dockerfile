@@ -15,4 +15,4 @@ COPY standalone.xml /opt/eap/standalone/configuration/standalone.xml
 RUN chown -R jboss:root /opt/eap
 USER jboss
 
-CMD /usr/local/s2i/run
+CMD ["sh", "-c", "${JBOSS_CONTAINER_WILDFLY_RUN_MODULE}/run"]
