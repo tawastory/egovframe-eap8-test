@@ -98,7 +98,7 @@
                 </handlers>
             </root-logger>
             <formatter name="COLOR-PATTERN">
-                <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"/>
+                <pattern-formatter pattern="%K{level}%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n"/>
             </formatter>
             <formatter name="OPENSHIFT">
                 <json-formatter>
@@ -360,6 +360,8 @@
                     <expiration interval="0"/>
                 </distributed-cache>
                 <distributed-cache name="dist">
+                    <locking isolation="REPEATABLE_READ"/>
+                    <transaction mode="BATCH"/>
                     <expiration interval="0"/>
                     <file-store passivation="true" purge="true"/>
                 </distributed-cache>
@@ -451,7 +453,6 @@
             <stacks>
                 <stack name="tcp">
                     <transport type="TCP" socket-binding="jgroups-tcp"/>
-                    <protocol type="kubernetes.KUBE_PING"/>
                     <protocol type="RED"/>
                     <protocol type="MERGE3"/>
                     <socket-protocol type="FD_SOCK2" socket-binding="jgroups-tcp-fd"/>
@@ -467,7 +468,6 @@
                 </stack>
                 <stack name="udp">
                     <transport type="UDP" socket-binding="jgroups-udp"/>
-                    <protocol type="kubernetes.KUBE_PING"/>
                     <protocol type="RED"/>
                     <protocol type="MERGE3"/>
                     <socket-protocol type="FD_SOCK2" socket-binding="jgroups-udp-fd"/>
@@ -497,7 +497,7 @@
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:messaging-activemq:17.0"/>
+        <subsystem xmlns="urn:jboss:domain:messaging-activemq:18.0"/>
         <subsystem xmlns="urn:wildfly:metrics:1.0" security-enabled="false" exposed-subsystems="*" prefix="${wildfly.metrics.prefix:jboss}"/>
         <subsystem xmlns="urn:jboss:domain:naming:2.0">
             <remote-naming/>
@@ -540,17 +540,15 @@
             <server name="default-server">
                 <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true" proxy-address-forwarding="true"/>
                 <host name="default-host" alias="localhost">
-                    <location name="/" handler="welcome-content"/>
                     <http-invoker http-authentication-factory="application-http-authentication"/>
                 </host>
             </server>
             <servlet-container name="default">
-                <jsp-config/>
+                <jsp-config x-powered-by="false"/>
                 <affinity-cookie name="INGRESSCOOKIE"/>
                 <websockets/>
             </servlet-container>
             <handlers>
-                <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
             </handlers>
             <application-security-domains>
                 <application-security-domain name="other" security-domain="ApplicationDomain"/>
@@ -580,7 +578,7 @@
             <inet-address value="${jboss.bind.address.private:127.0.0.1}"/>
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:0.0.0.0}"/>
+            <inet-address value="${jboss.bind.address:127.0.0.1}"/>
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="0">

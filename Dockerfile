@@ -12,6 +12,8 @@ COPY ROOT.war /opt/eap/standalone/deployments/
 #COPY scouter/conf/*.conf /opt/eap/scouter/conf/
 #COPY scouter/plugin/* /opt/eap/scouter/plugin/
 
+ENV CONFIG_IS_FINAL=true
+
 RUN chown -R jboss:root /opt/eap
 USER jboss
 
